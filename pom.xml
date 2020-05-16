@@ -152,7 +152,7 @@
                                     </descriptorRefs>
                                     <archive>
                                         <manifest>
-                                            <mainClass>com.grapeshot.halfnes.halfNES</mainClass>
+                                            <mainClass>com.grapeshot.halfnes.HeadlessNES</mainClass>
                                         </manifest>
                                     </archive>
                                 </configuration>
