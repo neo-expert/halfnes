@@ -427,7 +427,7 @@ public class SwingUI extends JFrame implements GUIInterface {
                     fps));
         }
         if (nes.framecount % (frameskip + 1) == 0) {
-            frame = renderer.render(nextframe, bgcolors, dotcrawl);
+            //frame = renderer.render(nextframe, bgcolors, dotcrawl);
             render();
         }
     }

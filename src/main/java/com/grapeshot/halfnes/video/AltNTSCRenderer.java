@@ -37,7 +37,7 @@ public class AltNTSCRenderer extends Renderer {
     private final static int SAMPLESPERPIXEL = 8;
 
     @Override
-    public BufferedImage render(int[] nespixels, int[] bgcolors, boolean dotcrawl) {
+    public void render(int[] nespixels, int[] bgcolors, boolean dotcrawl) {
         ++frame_ctr;
         if ((frame_ctr & 1) == 0) {
             phase = 0;
@@ -53,7 +53,7 @@ public class AltNTSCRenderer extends Renderer {
             ntsc_buf_ptr = 0;
         }
         frame_ptr = 0;
-        return getBufferedImage(frame);
+        //return getBufferedImage(frame);
     }
 
     private void ntsc_render(int pixel) {

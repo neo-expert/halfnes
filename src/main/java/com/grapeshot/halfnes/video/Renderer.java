@@ -31,7 +31,7 @@ public abstract class Renderer {
         }
     }
 
-    public abstract BufferedImage render(int[] nespixels, int[] bgcolors, boolean dotcrawl);
+    public abstract void render(int[] nespixels, int[] bgcolors, boolean dotcrawl);
 
     public void setClip(int i) {
         //how many lines to clip from top + bottom

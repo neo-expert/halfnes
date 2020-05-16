@@ -66,7 +66,8 @@ public class HeadlessUI implements GUIInterface {
     @Override
     public void setFrame(int[] frame, int[] bgcolor, boolean dotcrawl) {
         if (renderFrames) {
-            this.lastFrame = renderer.render(frame, bgcolor, dotcrawl);
+            //this.lastFrame = 
+							renderer.render(frame, bgcolor, dotcrawl);
         }
     }
 

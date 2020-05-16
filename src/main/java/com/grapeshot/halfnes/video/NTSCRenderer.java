@@ -220,14 +220,14 @@ public class NTSCRenderer extends Renderer {
 //    BufferedImageOp op = new ConvolveOp(kernel);
 
     @Override
-    public BufferedImage render(final int[] nespixels, final int[] bgcolors, final boolean dotcrawl) {
+    public void render(final int[] nespixels, final int[] bgcolors, final boolean dotcrawl) {
         // multithreaded filter
         lines.parallelStream().forEach(line -> cacheRender(nespixels, line, bgcolors, dotcrawl));
 
         BufferedImage i = getBufferedImage(frame);
         ++frames;
         //i = op.filter(i, null); //sharpen
-        return i;
+        //return i;
     }
     //ConcurrentHashMap cache = new ConcurrentHashMap<Long, int[]>(600);
     Map<Long, int[]> cache = Collections.synchronizedMap(new WeakHashMap<Long, int[]>(600));
