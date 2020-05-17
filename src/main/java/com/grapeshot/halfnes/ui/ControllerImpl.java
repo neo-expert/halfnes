@@ -4,6 +4,7 @@
  */
 package com.grapeshot.halfnes.ui;
 
+import com.grapeshot.halfnes.Prefs;
 import com.grapeshot.halfnes.PrefsSingleton;
 import static com.grapeshot.halfnes.utils.*;
 import java.awt.event.KeyEvent;
@@ -271,7 +272,7 @@ public class ControllerImpl implements ControllerInterface, KeyListener {
     }
 
     public final void setButtons() {
-        Preferences prefs = PrefsSingleton.get();
+        Prefs prefs = PrefsSingleton.get();
         //reset the buttons from prefs
         m.clear();
         switch (controllernum) {

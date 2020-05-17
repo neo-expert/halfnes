@@ -10,6 +10,7 @@
  */
 package com.grapeshot.halfnes.ui;
 
+import com.grapeshot.halfnes.Prefs;
 import com.grapeshot.halfnes.PrefsSingleton;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
@@ -31,7 +32,7 @@ public class PreferencesDialog extends javax.swing.JDialog {
      */
     public PreferencesDialog(java.awt.Frame parent) {
         super(parent, true);
-        Preferences prefs = PrefsSingleton.get();
+        Prefs prefs = PrefsSingleton.get();
         initComponents();
         this.setTitle("HalfNES Preferences");
         //set all of the text boxes
@@ -298,7 +299,7 @@ public class PreferencesDialog extends javax.swing.JDialog {
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         //    if ("OK".equals(evt.getActionCommand())) {
         //here we go... save everything and hide the window
-        Preferences prefs = PrefsSingleton.get();
+        Prefs prefs = PrefsSingleton.get();
         prefs.putBoolean("soundEnable", jCheckSoundEnable.isSelected());
         prefs.putBoolean("soundFiltering", jCheckSoundFiltering.isSelected());
         prefs.putBoolean("maintainAspect", jCheckMaintainAspect.isSelected());
@@ -314,7 +315,7 @@ public class PreferencesDialog extends javax.swing.JDialog {
         prefs.putInt("region", jRegionBox.getSelectedIndex());
         try {
             prefs.flush();
-        } catch (BackingStoreException ex) {
+        } catch (RuntimeException ex) {
             Logger.getLogger(PreferencesDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
         okClicked = true;

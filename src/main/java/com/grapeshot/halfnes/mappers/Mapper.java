@@ -30,7 +30,7 @@ public abstract class Mapper {
     //and then switch back the data in the other singlescreen NT isn't gone.
     long crc;
     TVType region;
-    Preferences prefs = PrefsSingleton.get();
+    Prefs prefs = PrefsSingleton.get();
 
     public boolean supportsSaves() {
         return savesram;

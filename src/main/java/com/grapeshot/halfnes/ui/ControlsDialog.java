@@ -10,6 +10,7 @@
  */
 package com.grapeshot.halfnes.ui;
 
+import com.grapeshot.halfnes.Prefs;
 import com.grapeshot.halfnes.PrefsSingleton;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
@@ -31,7 +32,7 @@ public class ControlsDialog extends javax.swing.JDialog {
      */
     public ControlsDialog(java.awt.Frame parent) {
         super(parent, true);
-        Preferences prefs = PrefsSingleton.get();
+        Prefs prefs = PrefsSingleton.get();
         int[][] keys = {{prefs.getInt("keyUp1", KeyEvent.VK_UP),
                 prefs.getInt("keyDown1", KeyEvent.VK_DOWN),
                 prefs.getInt("keyLeft1", KeyEvent.VK_LEFT),
@@ -479,7 +480,7 @@ public class ControlsDialog extends javax.swing.JDialog {
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         //    if ("OK".equals(evt.getActionCommand())) {
         //here we go... save everything and hide the window
-        Preferences prefs = PrefsSingleton.get();
+        Prefs prefs = PrefsSingleton.get();
         prefs.putInt("keyUp1", keys[0][0]);
         prefs.putInt("keyDown1", keys[0][1]);
         prefs.putInt("keyLeft1", keys[0][2]);
@@ -498,7 +499,7 @@ public class ControlsDialog extends javax.swing.JDialog {
         prefs.putInt("keyStart2", keys[1][7]);
         try {
             prefs.flush();
-        } catch (BackingStoreException ex) {
+        } catch (RuntimeException ex) {
             Logger.getLogger(ControlsDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
         okClicked = true;

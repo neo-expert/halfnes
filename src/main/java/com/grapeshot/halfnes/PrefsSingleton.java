@@ -12,16 +12,19 @@ import java.util.prefs.Preferences;
  */
 public class PrefsSingleton {
 
-    private static Preferences instance = null;
+    private static Prefs instance = null;
 
     private PrefsSingleton() {
         // Exists only to defeat instantiation.
     }
 
-    public synchronized static Preferences get() {
-        if (instance == null) {
-            instance = Preferences.userNodeForPackage(com.grapeshot.halfnes.NES.class);
-        }
+    public static void set(Prefs prefs){
+       instance=prefs;
+    }
+
+    public synchronized static Prefs get() {
+        if(instance==null)
+            instance=new DefaultPrefs();
         return instance;
     }
 }
