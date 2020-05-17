@@ -24,7 +24,7 @@ public class PrefsSingleton {
 
     public synchronized static Prefs get() {
         if(instance==null)
-            instance=new DefaultPrefs();
+            instance=new DOMPrefs();
         return instance;
     }
 }
