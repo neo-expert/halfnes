@@ -6,6 +6,7 @@ package com.grapeshot.halfnes;
 
 import com.grapeshot.halfnes.mappers.BadMapperException;
 import com.grapeshot.halfnes.mappers.Mapper;
+import java.io.*;
 
 public class ROMLoader {
     //this is the oldest code in the project... I'm honestly ashamed
@@ -27,9 +28,69 @@ public class ROMLoader {
     private final int[] therom;
 
     public ROMLoader(String filename) {
-        therom = FileUtils.readfromfile(filename);
+        therom = readfromfile(filename);
         name = filename;
     }
+
+    public ROMLoader(String name, InputStream is) {
+        therom = readfromStream(is);
+        this.name = name;
+    }
+
+    public static int[] readfromfile(final String path) {
+        File f = new File(path);
+        byte[] bytes = new byte[(int) f.length()];
+        FileInputStream fis;
+        try {
+            fis = new FileInputStream(f);
+            fis.read(bytes);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            System.err.println("Failed to load file");
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return bytesToInts(bytes);
+    }
+
+    private static int[] readfromStream(int length, InputStream is) {
+        byte[] buf=new byte[length];
+        try {
+            int readen=is.read(buf);
+            if(readen!=length)
+                throw new IOException("bad InputStream");
+        }
+        catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        return bytesToInts(buf);
+    }
+
+    private static int[] readfromStream(InputStream is) {
+        ByteArrayOutputStream baos=new ByteArrayOutputStream();
+        byte[] buf=new byte[1024];
+        try {
+            int readen;
+            while((readen=is.read(buf))!=-1){
+                baos.write(buf,0,readen);
+            }
+        }
+        catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        return bytesToInts(baos.toByteArray());
+    }
+
+    private static int[] bytesToInts(byte[] bytes){
+        int[] ints = new int[bytes.length];
+        for (int i = 0;
+             i < bytes.length;
+             i++) {
+            ints[i] = (short) (bytes[i] & 0xFF);
+        }
+        return ints;
+    }
+
 
     private void ReadHeader(int len) {
         // iNES header is 16 bytes, nsf header is 128,
