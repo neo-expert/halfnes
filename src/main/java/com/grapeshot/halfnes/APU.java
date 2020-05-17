@@ -98,7 +98,8 @@ public class APU {
         if (ai != null) {
             ai.destroy();
         }
-        ai = new SwingAudioImpl(nes, samplerate, tvtype);
+        //ai = new SwingAudioImpl(nes, samplerate, tvtype);
+        ai = new DOMAudio();
         if (PrefsSingleton.get().getBoolean("showScope", false)) {
             ai = new Oscilloscope(ai);
         }

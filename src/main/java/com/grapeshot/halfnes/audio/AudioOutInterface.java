@@ -10,15 +10,15 @@ package com.grapeshot.halfnes.audio;
  */
 public interface AudioOutInterface {
 
-    public void outputSample(int sample);
+    void outputSample(int sample);
 
-    public void flushFrame(boolean waitIfBufferFull);
+    void flushFrame(boolean waitIfBufferFull);
 
-    public void pause();
+    void pause();
 
-    public void resume();
+    void resume();
 
-    public void destroy();
+    void destroy();
 
-    public boolean bufferHasLessThan(int samples);
+    boolean bufferHasLessThan(int samples);
 }
