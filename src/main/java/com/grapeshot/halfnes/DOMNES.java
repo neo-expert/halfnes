@@ -2,6 +2,8 @@ package com.grapeshot.halfnes;
 
 import com.grapeshot.halfnes.ui.DOMUI;
 import com.grapeshot.halfnes.ui.PuppetController;
+import js.Console;
+import js.dom.DOM;
 
 public class DOMNES {
     public static void main(String ... args){
@@ -14,6 +16,11 @@ public class DOMNES {
         ui.getController1().releaseButton(PuppetController.Button.START);
         for (int i = 0; i < 5; i++) {
             ui.runFrame();
+        }
+        Console.log("dom ui initialized");
+        while (true){
+            DOM.getNextEvent()
+            .run();
         }
     }
 }
