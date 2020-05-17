@@ -8,7 +8,26 @@
     <groupId>com.grapeshot</groupId>
     <artifactId>halfnes</artifactId>
     <version>0.6.3-SNAPSHOT</version>
+		<repositories>
+			<repository>
+				<id>private-repo</id>
+				<name>Private Repository</name>
+				<url>https://raw.githubusercontent.com/neo-expert/jvm-maven/master/</url>
+				<releases>
+					<enabled>true</enabled>
+					<updatePolicy>never</updatePolicy>
+				</releases>
+				<snapshots>
+					<enabled>false</enabled>
+				</snapshots>
+			</repository>
+		</repositories>
     <dependencies>
+			<dependency>
+				<groupId>com.neoexpert</groupId>
+				<artifactId>dom</artifactId>
+				<version>1.0.5</version>
+			</dependency>
         <!-- Controller input -->
         <dependency>
             <groupId>net.java.jinput</groupId>
