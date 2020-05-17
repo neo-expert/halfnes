@@ -11,6 +11,9 @@ import com.grapeshot.halfnes.ui.ControllerInterface;
 import com.grapeshot.halfnes.ui.FrameLimiterImpl;
 import com.grapeshot.halfnes.ui.FrameLimiterInterface;
 import com.grapeshot.halfnes.ui.GUIInterface;
+import js.io.JSFile;
+
+import java.io.File;
 
 public class NES implements ProjectInfo {
 
@@ -113,65 +116,71 @@ public class NES implements ProjectInfo {
     public synchronized void loadROM(final String filename) {
         loadROM(filename, null);
     }
-
-    public synchronized void loadROM(final String filename, Integer initialPC) {
-        runEmulation = false;
+    public synchronized void loadROM(File file) {
+        loadROM(file, null);
+    }
+    public void loadROM(String filename, Integer initialPC) {
         if (FileUtils.exists(filename)
                 && (FileUtils.getExtension(filename).equalsIgnoreCase(".nes")
                 || FileUtils.getExtension(filename).equalsIgnoreCase(".nsf"))) {
-            Mapper newmapper;
-            try {
-                final ROMLoader loader = new ROMLoader(filename);
-                loader.parseHeader();
-                newmapper = Mapper.getCorrectMapper(loader);
-                newmapper.setLoader(loader);
-                newmapper.loadrom();
-            } catch (BadMapperException e) {
-                gui.messageBox("Error Loading File: ROM is"
-                        + " corrupted or uses an unsupported mapper.\n" + e.getMessage());
-                return;
-            } catch (Exception e) {
-                gui.messageBox("Error Loading File: ROM is"
-                        + " corrupted or uses an unsupported mapper.\n" + e.toString() + e.getMessage());
-                e.printStackTrace();
-                return;
-            }
-            if (apu != null) {
-                //if rom already running save its sram before closing
-                apu.destroy();
-                saveSRAM(false);
-                //also get rid of mapper etc.
-                mapper.destroy();
-                cpu = null;
-                cpuram = null;
-                ppu = null;
-            }
-            mapper = newmapper;
-            //now some annoying getting of all the references where they belong
-            cpuram = mapper.getCPURAM();
-            actionReplay = new ActionReplay(cpuram);
-            cpu = mapper.cpu;
-            ppu = mapper.ppu;
-            apu = new APU(this, cpu, cpuram);
-            cpuram.setAPU(apu);
-            cpuram.setPPU(ppu);
-            curRomPath = filename;
-            curRomName = FileUtils.getFilenamefromPath(filename);
-
-            framecount = 0;
-            //if savestate exists, load it
-            if (mapper.hasSRAM()) {
-                loadSRAM();
-            }
-            //and start emulation
-            cpu.init(initialPC);
-            mapper.init();
-            setParameters();
-            runEmulation = true;
-        } else {
+            loadROM(new File(filename), initialPC);
+        }else {
             gui.messageBox("Could not load file:\nFile " + filename + "\n"
                     + "does not exist or is not a valid NES game.");
         }
+    }
+
+    public synchronized void loadROM(File file, Integer initialPC) {
+        runEmulation = false;
+        Mapper newmapper;
+        try {
+            final ROMLoader loader = new ROMLoader(file);
+            loader.parseHeader();
+            newmapper = Mapper.getCorrectMapper(loader);
+            newmapper.setLoader(loader);
+            newmapper.loadrom();
+        } catch (BadMapperException e) {
+            gui.messageBox("Error Loading File: ROM is"
+                    + " corrupted or uses an unsupported mapper.\n" + e.getMessage());
+            return;
+        } catch (Exception e) {
+            gui.messageBox("Error Loading File: ROM is"
+                    + " corrupted or uses an unsupported mapper.\n" + e.toString() + e.getMessage());
+            e.printStackTrace();
+            return;
+        }
+        if (apu != null) {
+            //if rom already running save its sram before closing
+            apu.destroy();
+            saveSRAM(false);
+            //also get rid of mapper etc.
+            mapper.destroy();
+            cpu = null;
+            cpuram = null;
+            ppu = null;
+        }
+        mapper = newmapper;
+        //now some annoying getting of all the references where they belong
+        cpuram = mapper.getCPURAM();
+        actionReplay = new ActionReplay(cpuram);
+        cpu = mapper.cpu;
+        ppu = mapper.ppu;
+        apu = new APU(this, cpu, cpuram);
+        cpuram.setAPU(apu);
+        cpuram.setPPU(ppu);
+        curRomPath = file.getAbsolutePath();
+        curRomName = file.getName();
+
+        framecount = 0;
+        //if savestate exists, load it
+        if (mapper.hasSRAM()) {
+            loadSRAM();
+        }
+        //and start emulation
+        cpu.init(initialPC);
+        mapper.init();
+        setParameters();
+        runEmulation = true;
     }
 
     private void saveSRAM(final boolean async) {
@@ -306,4 +315,5 @@ public class NES implements ProjectInfo {
     public synchronized ActionReplay getActionReplay() {
         return actionReplay;
     }
+
 }

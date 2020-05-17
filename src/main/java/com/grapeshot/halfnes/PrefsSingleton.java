@@ -14,7 +14,7 @@ public class PrefsSingleton {
 
     private static Preferences instance = null;
 
-    protected PrefsSingleton() {
+    private PrefsSingleton() {
         // Exists only to defeat instantiation.
     }
 

@@ -27,9 +27,10 @@ public class ROMLoader {
     public int[] header;
     private final int[] therom;
 
-    public ROMLoader(String filename) {
-        therom = readfromfile(filename);
-        name = filename;
+
+    public ROMLoader(File file) {
+        therom = readfromfile(file);
+        name = file.getName();
     }
 
     public ROMLoader(String name, InputStream is) {
@@ -37,8 +38,7 @@ public class ROMLoader {
         this.name = name;
     }
 
-    public static int[] readfromfile(final String path) {
-        File f = new File(path);
+    private static int[] readfromfile(File f) {
         byte[] bytes = new byte[(int) f.length()];
         FileInputStream fis;
         try {
