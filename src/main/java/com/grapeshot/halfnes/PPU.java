@@ -12,6 +12,8 @@ import static com.grapeshot.halfnes.utils.reverseByte;
 import java.awt.image.BufferedImage;
 import static java.awt.image.BufferedImage.TYPE_INT_BGR;
 import java.util.Arrays;
+import java.util.Locale;
+
 import static java.util.Arrays.fill;
 import static java.util.Arrays.fill;
 

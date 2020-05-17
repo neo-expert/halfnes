@@ -20,7 +20,7 @@ public class utils {
     }
 
     public static String hex(final int num) {
-        String s = Integer.toHexString(num).toUpperCase(Locale.US);
+        String s = Integer.toHexString(num).toUpperCase();
         if ((s.length() & 1) == 1) {
             s = "0" + s;
         }
@@ -28,7 +28,7 @@ public class utils {
     }
 
     public static String hex(final long num) {
-        String s = Long.toHexString(num).toUpperCase(Locale.US);
+        String s = Long.toHexString(num).toUpperCase();
         if ((s.length() & 1) == 1) {
             s = "0" + s;
         }

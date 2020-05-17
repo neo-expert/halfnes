@@ -13,7 +13,7 @@ import js.event.EventListener;
 import js.io.JSFile;
 
 public class DOMUI implements GUIInterface{
-    private final NES nes;
+    private NES nes;
     private final DOMRenderer renderer;
     private PuppetController controller1, controller2;
 
@@ -31,14 +31,31 @@ public class DOMUI implements GUIInterface{
             @Override
             public void handle(JSElement jsElement, JSEvent jsEvent) {
                 DOM.alert("open File");
-                Console.debugger();
                 JSObject[] files = jsElement.getArray("files");
                 JSFile file = new JSFile(files[0]);
                 nes.loadROM(file);
+                start();
             }
         });
 
     }
+
+    private void start() {
+        for (int i = 0; i < 100; i++) {
+            Console.log("runFrame: "+i);
+            runFrame();
+        }
+        Console.log("start: ");
+        getController1().pressButton(PuppetController.Button.START);
+        runFrame();
+        Console.log("stop: ");
+        getController1().releaseButton(PuppetController.Button.START);
+        for (int i = 0; i < 5; i++) {
+            runFrame();
+        }
+        Console.log("done: ");
+    }
+
     public PuppetController getController1() {
         return controller1;
     }
@@ -49,12 +66,12 @@ public class DOMUI implements GUIInterface{
 
     @Override
     public void setNES(NES nes) {
-
+        this.nes=nes;
     }
 
     @Override
     public void setFrame(int[] frame, int[] bgcolor, boolean dotcrawl) {
-
+        renderer.render(frame,bgcolor,dotcrawl);
     }
 
     @Override
