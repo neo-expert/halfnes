@@ -1,6 +1,8 @@
 package com.grapeshot.halfnes.ui;
 
 import com.grapeshot.halfnes.NES;
+import com.grapeshot.halfnes.video.DOMRenderer;
+import com.grapeshot.halfnes.video.RGBRenderer;
 import js.JSEvent;
 import js.dom.DOM;
 import js.dom.DOMElement;
@@ -9,12 +11,16 @@ import js.event.EventListener;
 
 public class DOMUI implements GUIInterface{
     private final NES nes;
+    private final DOMRenderer renderer;
     private PuppetController controller1, controller2;
 
     public DOMUI(){
         nes = new NES(this);
-        nes.loadROM("battletoads.nes");
-        DOMElement root=DOM.getElementById("root");
+        this.renderer = new DOMRenderer();
+        this.controller1 = new PuppetController();
+        this.controller2 = new PuppetController();
+        nes.setControllers(this.controller1, this.controller2);
+        DOMElement root=DOM.getElementById("body");
         DOMElement button=DOM.createElement("button");
         button.setContent("load rom ...");
         root.appendChild(button);
@@ -22,6 +28,7 @@ public class DOMUI implements GUIInterface{
             @Override
             public void handle(JSElement jsElement, JSEvent jsEvent) {
                 DOM.alert("open File");
+                nes.loadROM("battletoads.nes");
             }
         });
 
