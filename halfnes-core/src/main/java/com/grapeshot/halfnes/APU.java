@@ -91,6 +91,12 @@ public class APU {
         return lookup;
     }
 
+		private static AudioOutInterface defAudio;
+		public static void setDedaultAudioInterface(AudioOutInterface ai){
+			defAudio=ai;
+		
+		}
+
     public final synchronized void setParameters() {
         Mapper.TVType tvtype = cpuram.mapper.getTVType();
         soundFiltering = PrefsSingleton.get().getBoolean("soundFiltering", true);
@@ -98,8 +104,10 @@ public class APU {
         if (ai != null) {
             ai.destroy();
         }
-        //ai = new SwingAudioImpl(nes, samplerate, tvtype);
-        ai = new DOMAudio();
+        ai = defAudio;
+				if(ai==null)
+        	ai = new SwingAudioImpl(nes, samplerate, tvtype);
+        //ai = new DOMAudio();
         if (PrefsSingleton.get().getBoolean("showScope", false)) {
             ai = new Oscilloscope(ai);
         }

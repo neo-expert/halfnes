@@ -1,7 +1,7 @@
-package com.grapeshot.halfnes.ui;
+package com.neoexpert.domhalfnes;
+import com.grapeshot.halfnes.ui.*;
 
 import com.grapeshot.halfnes.NES;
-import com.grapeshot.halfnes.video.DOMRenderer;
 import com.grapeshot.halfnes.video.RGBRenderer;
 import js.Console;
 import js.JSEvent;

@@ -1,4 +1,5 @@
-package com.grapeshot.halfnes.audio;
+package com.neoexpert.domhalfnes;
+import com.grapeshot.halfnes.audio.AudioOutInterface;
 
 public class DOMAudio implements AudioOutInterface{
     @Override

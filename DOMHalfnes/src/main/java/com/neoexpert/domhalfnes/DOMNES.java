@@ -1,6 +1,6 @@
-package com.grapeshot.halfnes;
+package com.neoexpert.domhalfnes;
+import com.grapeshot.halfnes.*;
 
-import com.grapeshot.halfnes.ui.DOMUI;
 import com.grapeshot.halfnes.ui.PuppetController;
 import js.Console;
 import js.dom.DOM;

@@ -1,11 +1,12 @@
-package com.grapeshot.halfnes.video;
+package com.neoexpert.domhalfnes;
+import com.grapeshot.halfnes.video.*;
 
 
 import js.Console;
 
 public class DOMRenderer extends Renderer{
     public DOMRenderer(){
-        frame_width=256;
+        //frame_width=256;
     }
 
     @Override

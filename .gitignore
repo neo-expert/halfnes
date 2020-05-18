@@ -35,7 +35,7 @@ proguard4.7
 /justbreedbug.txt
 /.idea
 /*.iml
-/target
+target/
 /.settings/
 .classpath
 .project
