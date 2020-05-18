@@ -15,7 +15,9 @@ import com.grapeshot.halfnes.utils;
 //Direct port of Bisqwit's code on the wiki. (probably just as slow, we'll see.)
 //yep, it's WORSE
 //the expensive part is the Math function calls of course
-public class AltNTSCRenderer extends Renderer {
+public class AltNTSCRenderer extends BufferedImageRenderer {
+
+    private BufferedImage img;
 
     public AltNTSCRenderer() {
         frame_width = 604;
@@ -53,7 +55,7 @@ public class AltNTSCRenderer extends Renderer {
             ntsc_buf_ptr = 0;
         }
         frame_ptr = 0;
-        //return getBufferedImage(frame);
+        img=getBufferedImage(frame);
     }
 
     private void ntsc_render(int pixel) {
@@ -128,5 +130,10 @@ public class AltNTSCRenderer extends Renderer {
     public static double gammafix(double luma) {
         final float gamma = 2.0f; // Assumed display gamma
         return luma <= 0.f ? 0.f : Math.pow(luma, 2.2f / gamma);
+    }
+
+    @Override
+    public BufferedImage getImage() {
+        return img;
     }
 }

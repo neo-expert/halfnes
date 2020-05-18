@@ -5,8 +5,6 @@
 package com.grapeshot.halfnes.video;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferInt;
-import java.awt.image.WritableRaster;
 
 /**
  *
@@ -22,14 +20,6 @@ public abstract class Renderer {
      */
     int clip = 8;
     int height = 240 - 2 * clip;
-    BufferedImage[] imgs = {null, null, null, null};
-    int imgctr = 0;
-
-    protected final void init_images() {
-        for (int i = 0; i < imgs.length; ++i) {
-            imgs[i] = new BufferedImage(frame_width, height, BufferedImage.TYPE_INT_ARGB_PRE);
-        }
-    }
 
     public abstract void render(int[] nespixels, int[] bgcolors, boolean dotcrawl);
 
