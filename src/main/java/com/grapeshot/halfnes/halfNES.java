@@ -14,6 +14,7 @@ public class halfNES {
     private halfNES() {}
 
     public static void main(String[] args) throws IOException {
+        PrefsSingleton.set(new DefaultPrefs());
         JInputHelper.setupJInput();
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

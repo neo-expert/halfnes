@@ -13,7 +13,7 @@ import java.util.zip.CRC32;
  *
  * @author Andrew
  */
-public class NTSCRenderer extends Renderer {
+public class NTSCRenderer extends BufferedImageRenderer {
 
     private final static List<Integer> lines;
     static {
@@ -58,6 +58,7 @@ public class NTSCRenderer extends Renderer {
     private int frames = 0;
     private final float[] i_filter = new float[12], q_filter = new float[12];
     private final static int[] colortbl = genColorCorrectTbl();
+    private BufferedImage img;
 
     public NTSCRenderer() {
         frame_width = 704 * 3;
@@ -224,11 +225,17 @@ public class NTSCRenderer extends Renderer {
         // multithreaded filter
         lines.parallelStream().forEach(line -> cacheRender(nespixels, line, bgcolors, dotcrawl));
 
-        BufferedImage i = getBufferedImage(frame);
+        this.img = getBufferedImage(frame);
         ++frames;
         //i = op.filter(i, null); //sharpen
         //return i;
     }
+
+    @Override
+    public BufferedImage getImage() {
+        return img;
+    }
+
     //ConcurrentHashMap cache = new ConcurrentHashMap<Long, int[]>(600);
     Map<Long, int[]> cache = Collections.synchronizedMap(new WeakHashMap<Long, int[]>(600));
     //weak hash map allows things in it to be garbage collected
@@ -268,4 +275,5 @@ public class NTSCRenderer extends Renderer {
         c.update(bgcolor);
         return c.getValue();
     }
+
 }

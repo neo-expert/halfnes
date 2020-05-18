@@ -12,7 +12,9 @@ import java.awt.image.BufferedImage;
  *
  * @author Andrew
  */
-public class RGBRenderer extends Renderer {
+public class RGBRenderer extends BufferedImageRenderer {
+
+    private BufferedImage img;
 
     public RGBRenderer() {
         frame_width = 256;
@@ -25,6 +27,11 @@ public class RGBRenderer extends Renderer {
         for (int i = 0; i < nespixels.length; ++i) {
             nespixels[i] = NesColors.col[(nespixels[i] & 0x1c0) >> 6][nespixels[i] & 0x3f];
         }
-        //return getBufferedImage(nespixels);
+        img= getBufferedImage(nespixels);
+    }
+
+    @Override
+    public BufferedImage getImage() {
+        return img;
     }
 }

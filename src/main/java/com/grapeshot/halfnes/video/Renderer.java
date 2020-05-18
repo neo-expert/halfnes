@@ -39,12 +39,5 @@ public abstract class Renderer {
         height = 240 - 2 * clip;
     }
 
-    public BufferedImage getBufferedImage(int[] frame) {
-        final BufferedImage image = imgs[++imgctr % imgs.length];
-        final WritableRaster raster = image.getRaster();
-        final int[] pixels = ((DataBufferInt) raster.getDataBuffer()).getData();
-        System.arraycopy(frame, frame_width * clip, pixels, 0, frame_width * height);
-        return image;
-    }
 
 }

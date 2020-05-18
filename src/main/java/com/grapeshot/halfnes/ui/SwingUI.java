@@ -7,6 +7,7 @@ package com.grapeshot.halfnes.ui;
 import com.grapeshot.halfnes.FileUtils;
 import com.grapeshot.halfnes.NES;
 import com.grapeshot.halfnes.PrefsSingleton;
+import com.grapeshot.halfnes.video.BufferedImageRenderer;
 import com.grapeshot.halfnes.video.RGBRenderer;
 import com.grapeshot.halfnes.cheats.ActionReplay;
 import com.grapeshot.halfnes.cheats.ActionReplayGui;
@@ -44,7 +45,7 @@ public class SwingUI extends JFrame implements GUIInterface {
     private boolean smoothScale, inFullScreen = false;
     private GraphicsDevice gd;
     private int NES_HEIGHT, NES_WIDTH;
-    private Renderer renderer;
+    private BufferedImageRenderer renderer;
     private final ControllerImpl padController1, padController2;
 
     public SwingUI() {
@@ -427,7 +428,8 @@ public class SwingUI extends JFrame implements GUIInterface {
                     fps));
         }
         if (nes.framecount % (frameskip + 1) == 0) {
-            //frame = renderer.render(nextframe, bgcolors, dotcrawl);
+            renderer.render(nextframe, bgcolors, dotcrawl);
+            frame=renderer.getImage();
             render();
         }
     }
