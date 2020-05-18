@@ -6,7 +6,7 @@ import java.awt.image.WritableRaster;
 
 public abstract class BufferedImageRenderer extends Renderer {
     public abstract BufferedImage getImage();
-    public BufferedImage getBufferedImage(int[] frame) {
+    protected BufferedImage getBufferedImage(int[] frame) {
         final BufferedImage image = imgs[++imgctr % imgs.length];
         final WritableRaster raster = image.getRaster();
         final int[] pixels = ((DataBufferInt) raster.getDataBuffer()).getData();
