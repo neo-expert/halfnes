@@ -7,6 +7,7 @@ import js.dom.DOM;
 
 public class DOMNES {
     public static void main(String ... args){
+			APU.setDedaultAudioInterface(new DOMAudio());
         PrefsSingleton.set(new DOMPrefs());
         DOMUI ui=new DOMUI();
         Console.log("dom ui initialized");
