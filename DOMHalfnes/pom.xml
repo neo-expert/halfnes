@@ -34,6 +34,11 @@
 				<artifactId>dom</artifactId>
 				<version>1.0.5</version>
 			</dependency>
+		<dependency>
+			<groupId>com.neoexpert</groupId>
+			<artifactId>jvmserver</artifactId>
+			<version>0.0.1</version>
+		</dependency>
 			<!-- Controller input -->
 		</dependencies>
 		<properties>
@@ -61,7 +66,7 @@
 								</descriptorRefs>
 								<archive>
 									<manifest>
-										<mainClass>com.neoexpert.domhalfnes.DOMNES</mainClass>
+										<mainClass>com.neoexpert.domhalfnes.Main</mainClass>
 									</manifest>
 								</archive>
 							</configuration>
