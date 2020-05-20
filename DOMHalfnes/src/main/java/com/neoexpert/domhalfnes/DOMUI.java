@@ -6,6 +6,7 @@ import com.grapeshot.halfnes.video.RGBRenderer;
 import js.Console;
 import js.JSEvent;
 import js.JSObject;
+import js.dom.Canvas;
 import js.dom.DOM;
 import js.dom.DOMElement;
 import js.dom.JSElement;
@@ -19,11 +20,15 @@ public class DOMUI implements GUIInterface{
 
     public DOMUI(){
         nes = new NES(this);
-        this.renderer = new DOMRenderer();
+        Canvas canvas = DOM.createElement("canvas");
+        canvas.setInt("width",256);
+        canvas.setInt("height",240);
+        this.renderer = new DOMRenderer(canvas);
         this.controller1 = new PuppetController();
         this.controller2 = new PuppetController();
         nes.setControllers(this.controller1, this.controller2);
         DOMElement root=DOM.getElementById("body");
+        root.appendChild(canvas);
         DOMElement input=DOM.createElement("input");
         input.setString("type","file");
         root.appendChild(input);
@@ -93,7 +98,13 @@ public class DOMUI implements GUIInterface{
     public void loadROMs(String path) {
     }
 
+    Runnable runFrame=new Runnable() {
+        @Override
+        public void run() {
+            nes.frameAdvance();
+        }
+    };
     public void runFrame() {
-        nes.frameAdvance();
+        DOM.requestAnimationFrame(runFrame);
     }
 }
