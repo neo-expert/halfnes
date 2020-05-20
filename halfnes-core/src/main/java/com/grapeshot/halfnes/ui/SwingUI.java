@@ -6,13 +6,13 @@ package com.grapeshot.halfnes.ui;
 
 import com.grapeshot.halfnes.FileUtils;
 import com.grapeshot.halfnes.NES;
-import com.grapeshot.halfnes.PrefsSingleton;
+import com.grapeshot.halfnes.NESContext;
 import com.grapeshot.halfnes.video.BufferedImageRenderer;
 import com.grapeshot.halfnes.video.RGBRenderer;
 import com.grapeshot.halfnes.cheats.ActionReplay;
 import com.grapeshot.halfnes.cheats.ActionReplayGui;
 import com.grapeshot.halfnes.video.NTSCRenderer;
-import com.grapeshot.halfnes.video.Renderer;
+
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -50,7 +50,7 @@ public class SwingUI extends JFrame implements GUIInterface {
 
     public SwingUI() {
         nes = new NES(this);
-        screenScaleFactor = PrefsSingleton.get().getInt("screenScaling", 2);
+        screenScaleFactor = NESContext.getPrefs().getInt("screenScaling", 2);
         padController1 = new ControllerImpl(this, 0);
         padController2 = new ControllerImpl(this, 1);
         nes.setControllers(padController1, padController2);
@@ -72,16 +72,16 @@ public class SwingUI extends JFrame implements GUIInterface {
         if (canvas != null) {
             this.remove(canvas);
         }
-        screenScaleFactor = PrefsSingleton.get().getInt("screenScaling", 2);
-        smoothScale = PrefsSingleton.get().getBoolean("smoothScaling", false);
-        if (PrefsSingleton.get().getBoolean("TVEmulation", false)) {
+        screenScaleFactor = NESContext.getPrefs().getInt("screenScaling", 2);
+        smoothScale = NESContext.getPrefs().getBoolean("smoothScaling", false);
+        if (NESContext.getPrefs().getBoolean("TVEmulation", false)) {
             renderer = new NTSCRenderer();
             NES_WIDTH = 302;
         } else {
             renderer = new RGBRenderer();
             NES_WIDTH = 256;
         }
-        if (PrefsSingleton.get().getInt("region", 0) > 1) {
+        if (NESContext.getPrefs().getInt("region", 0) > 1) {
             NES_HEIGHT = 240;
             renderer.setClip(0);
         } else {
@@ -121,8 +121,8 @@ public class SwingUI extends JFrame implements GUIInterface {
                 KeyStroke.getKeyStroke(KeyEvent.VK_F11, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
         this.getRootPane().registerKeyboardAction(listener, "Quit",
                 KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_DOWN_MASK), JComponent.WHEN_IN_FOCUSED_WINDOW);
-        this.setLocation(PrefsSingleton.get().getInt("windowX", 0),
-                PrefsSingleton.get().getInt("windowY", 0));
+        this.setLocation(NESContext.getPrefs().getInt("windowX", 0),
+                NESContext.getPrefs().getInt("windowY", 0));
         this.addWindowListener(listener);
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
@@ -251,7 +251,7 @@ public class SwingUI extends JFrame implements GUIInterface {
         fileDialog.setMode(FileDialog.LOAD);
         fileDialog.setTitle("Select a ROM to load");
         //should open last folder used, and if that doesn't exist, the folder it's running in
-        final String path = PrefsSingleton.get().get("filePath", System.getProperty("user.dir", ""));
+        final String path = NESContext.getPrefs().get("filePath", System.getProperty("user.dir", ""));
         final File startDirectory = new File(path);
         if (startDirectory.isDirectory()) {
             fileDialog.setDirectory(path);
@@ -268,7 +268,7 @@ public class SwingUI extends JFrame implements GUIInterface {
         }
         fileDialog.setVisible(true);
         if (fileDialog.getFile() != null) {
-            PrefsSingleton.get().put("filePath", fileDialog.getDirectory());
+            NESContext.getPrefs().put("filePath", fileDialog.getDirectory());
             loadROM(fileDialog.getDirectory() + fileDialog.getFile());
         }
         if (wasInFullScreen) {
@@ -446,7 +446,7 @@ public class SwingUI extends JFrame implements GUIInterface {
             int scrnheight = dm.getHeight();
             int scrnwidth = dm.getWidth();
             graphics.fillRect(0, 0, scrnwidth, scrnheight);
-            if (PrefsSingleton.get().getBoolean("maintainAspect", true)) {
+            if (NESContext.getPrefs().getBoolean("maintainAspect", true)) {
                 double scalefactor = getmaxscale(scrnwidth, scrnheight);
                 int height = (int) (NES_HEIGHT * scalefactor);
                 int width = (int) (256 * scalefactor * 1.1666667);
@@ -504,8 +504,8 @@ public class SwingUI extends JFrame implements GUIInterface {
     }
 
     public void savewindowposition() {
-        PrefsSingleton.get().putInt("windowX", this.getX());
-        PrefsSingleton.get().putInt("windowY", this.getY());
+        NESContext.getPrefs().putInt("windowX", this.getX());
+        NESContext.getPrefs().putInt("windowY", this.getY());
     }
 
     private double getmaxscale(final int width, final int height) {

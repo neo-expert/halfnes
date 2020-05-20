@@ -5,7 +5,7 @@
 package com.grapeshot.halfnes.ui;
 
 import com.grapeshot.halfnes.Prefs;
-import com.grapeshot.halfnes.PrefsSingleton;
+import com.grapeshot.halfnes.NESContext;
 import static com.grapeshot.halfnes.utils.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.prefs.Preferences;
 
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
@@ -272,7 +271,7 @@ public class ControllerImpl implements ControllerInterface, KeyListener {
     }
 
     public final void setButtons() {
-        Prefs prefs = PrefsSingleton.get();
+        Prefs prefs = NESContext.getPrefs();
         //reset the buttons from prefs
         m.clear();
         switch (controllernum) {
@@ -302,11 +301,11 @@ public class ControllerImpl implements ControllerInterface, KeyListener {
         Controller[] controllers = getAvailablePadControllers();
         if (controllers.length > controllernum) {
             this.gameController = controllers[controllernum];
-            PrefsSingleton.get().put("controller" + controllernum, gameController.getName());
+            NESContext.getPrefs().put("controller" + controllernum, gameController.getName());
             System.err.println(controllernum + 1 + ". " + gameController.getName());
             this.buttons = getButtons(controllers[controllernum]);
         } else {
-            PrefsSingleton.get().put("controller" + controllernum, "");
+            NESContext.getPrefs().put("controller" + controllernum, "");
             this.gameController = null;
             this.buttons = null;
         }

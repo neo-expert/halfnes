@@ -5,7 +5,7 @@
 package com.grapeshot.halfnes.ui;
 
 import com.grapeshot.halfnes.NES;
-import com.grapeshot.halfnes.PrefsSingleton;
+import com.grapeshot.halfnes.NESContext;
 
 /**
  *
@@ -30,7 +30,7 @@ public class FrameLimiterImpl implements FrameLimiterInterface {
     @Override
     public void sleep() {
         //Frame Limiter
-        if (!PrefsSingleton.get().getBoolean("Sleep", true)) {
+        if (!NESContext.getPrefs().getBoolean("Sleep", true)) {
             return; //skip frame limiter if pref set
         }
         final long timeleft = System.nanoTime() - nes.frameStartTime;

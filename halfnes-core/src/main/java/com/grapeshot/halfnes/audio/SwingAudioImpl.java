@@ -5,8 +5,7 @@
 package com.grapeshot.halfnes.audio;
 
 import com.grapeshot.halfnes.NES;
-import com.grapeshot.halfnes.PrefsSingleton;
-import com.grapeshot.halfnes.audio.AudioOutInterface;
+import com.grapeshot.halfnes.NESContext;
 import com.grapeshot.halfnes.mappers.Mapper;
 import javax.sound.sampled.*;
 
@@ -23,8 +22,8 @@ public class SwingAudioImpl implements AudioOutInterface {
     private float outputvol;
 
     public SwingAudioImpl(final NES nes, final int samplerate, Mapper.TVType tvtype) {
-        soundEnable = PrefsSingleton.get().getBoolean("soundEnable", true);
-        outputvol = (float) (PrefsSingleton.get().getInt("outputvol", 13107) / 16384.);
+        soundEnable = NESContext.getPrefs().getBoolean("soundEnable", true);
+        outputvol = (float) (NESContext.getPrefs().getInt("outputvol", 13107) / 16384.);
         double fps;
         switch (tvtype) {
             case NTSC:

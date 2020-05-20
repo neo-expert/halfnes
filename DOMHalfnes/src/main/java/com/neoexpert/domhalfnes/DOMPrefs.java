@@ -1,6 +1,8 @@
-package com.grapeshot.halfnes;
+package com.neoexpert.domhalfnes;
 
-public class DOMPrefs implements Prefs{
+import com.grapeshot.halfnes.Prefs;
+
+public class DOMPrefs implements Prefs {
     @Override
     public int getInt(String region, int def) {
         return def;

@@ -38,11 +38,43 @@ public class DOMUI implements GUIInterface{
                 DOM.alert("open File");
                 JSObject[] files = jsElement.getArray("files");
                 JSFile file = new JSFile(files[0]);
-                nes.loadROM(file);
+                nes.loadROM(file,0xC000);
+                //test();
                 start();
             }
         });
 
+    }
+
+    private void test() {
+        //nes.loadROM("src/test/resources/nestest/nestest.nes", 0xC000);
+        //nes.setControllers(mock(ControllerInterface.class), mock(ControllerInterface.class));
+
+        //log all instructions executed to compare with real nestest.log
+        nes.getCPU().startLog();
+        while (nes.runEmulation) {
+            //runs until hits a KIL opcode which is a few instructions after the
+            //official log finishes.
+            nes.frameAdvance();
+        }
+        //log should be at least 8992 lines
+        //I don't actually compare the logs in this test yet.
+
+        //check some bytes of RAM for successful test result values
+        System.err.println(nes.getCPURAM().read(0));
+        System.err.println(nes.getCPURAM().read(1));
+        System.err.println(nes.getCPURAM().read(2));
+        System.err.println(nes.getCPURAM().read(3));
+
+        assertEquals(nes.getCPURAM().read(0), 0);
+        assertEquals(nes.getCPURAM().read(1), 255);
+        assertEquals(nes.getCPURAM().read(2), 255);
+        assertEquals(nes.getCPURAM().read(3), 255);
+    }
+
+    private void assertEquals(int v1, int v2) {
+        if(v1!=v2)
+            Console.error("assert failed");
     }
 
     private void start() {

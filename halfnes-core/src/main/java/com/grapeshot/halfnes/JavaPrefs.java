@@ -3,10 +3,10 @@ package com.grapeshot.halfnes;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
-public class DefaultPrefs implements Prefs{
+public class JavaPrefs implements Prefs{
     private final Preferences prefs;
 
-    public DefaultPrefs() {
+    public JavaPrefs() {
         this.prefs = Preferences.userNodeForPackage(NES.class);
     }
 

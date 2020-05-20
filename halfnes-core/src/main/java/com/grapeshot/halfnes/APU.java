@@ -99,8 +99,8 @@ public class APU {
 
     public final synchronized void setParameters() {
         Mapper.TVType tvtype = cpuram.mapper.getTVType();
-        soundFiltering = PrefsSingleton.get().getBoolean("soundFiltering", true);
-        samplerate = PrefsSingleton.get().getInt("sampleRate", 44100);
+        soundFiltering = NESContext.getPrefs().getBoolean("soundFiltering", true);
+        samplerate = NESContext.getPrefs().getInt("sampleRate", 44100);
         if (ai != null) {
             ai.destroy();
         }
@@ -108,7 +108,7 @@ public class APU {
 				if(ai==null)
         	ai = new SwingAudioImpl(nes, samplerate, tvtype);
         //ai = new DOMAudio();
-        if (PrefsSingleton.get().getBoolean("showScope", false)) {
+        if (NESContext.getPrefs().getBoolean("showScope", false)) {
             ai = new Oscilloscope(ai);
         }
         //pick the appropriate pitches and lengths for NTSC or PAL

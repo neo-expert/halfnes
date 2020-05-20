@@ -4,7 +4,7 @@
  */
 package com.grapeshot.halfnes;
 
-import static com.grapeshot.halfnes.PrefsSingleton.get;
+import static com.grapeshot.halfnes.NESContext.getPrefs;
 import com.grapeshot.halfnes.mappers.Mapper;
 import com.grapeshot.halfnes.ui.DebugUI;
 import com.grapeshot.halfnes.ui.GUIInterface;
@@ -12,7 +12,6 @@ import static com.grapeshot.halfnes.utils.reverseByte;
 import java.awt.image.BufferedImage;
 import static java.awt.image.BufferedImage.TYPE_INT_BGR;
 import java.util.Arrays;
-import java.util.Locale;
 
 import static java.util.Arrays.fill;
 import static java.util.Arrays.fill;
@@ -41,7 +40,7 @@ public class PPU {
     public final int[] pal;
     private DebugUI debuggui;
     private int vraminc = 1;
-    private final static boolean PPUDEBUG = get().getBoolean("ntView", false);
+    private final static boolean PPUDEBUG = getPrefs().getBoolean("ntView", false);
     private BufferedImage nametableView;
     private final int[] bgcolors = new int[256];
     private int openbus = 0; //the last value written to the PPU

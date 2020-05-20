@@ -11,12 +11,10 @@
 package com.grapeshot.halfnes.ui;
 
 import com.grapeshot.halfnes.Prefs;
-import com.grapeshot.halfnes.PrefsSingleton;
+import com.grapeshot.halfnes.NESContext;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.prefs.BackingStoreException;
-import java.util.prefs.Preferences;
 
 /**
  *
@@ -32,7 +30,7 @@ public class ControlsDialog extends javax.swing.JDialog {
      */
     public ControlsDialog(java.awt.Frame parent) {
         super(parent, true);
-        Prefs prefs = PrefsSingleton.get();
+        Prefs prefs = NESContext.getPrefs();
         int[][] keys = {{prefs.getInt("keyUp1", KeyEvent.VK_UP),
                 prefs.getInt("keyDown1", KeyEvent.VK_DOWN),
                 prefs.getInt("keyLeft1", KeyEvent.VK_LEFT),
@@ -480,7 +478,7 @@ public class ControlsDialog extends javax.swing.JDialog {
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         //    if ("OK".equals(evt.getActionCommand())) {
         //here we go... save everything and hide the window
-        Prefs prefs = PrefsSingleton.get();
+        Prefs prefs = NESContext.getPrefs();
         prefs.putInt("keyUp1", keys[0][0]);
         prefs.putInt("keyDown1", keys[0][1]);
         prefs.putInt("keyLeft1", keys[0][2]);

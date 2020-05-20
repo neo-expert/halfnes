@@ -171,7 +171,7 @@
                                     </descriptorRefs>
                                     <archive>
                                         <manifest>
-                                            <mainClass>com.grapeshot.halfnes.DOMNES</mainClass>
+                                            <mainClass>com.grapeshot.halfnes.halfNES</mainClass>
                                         </manifest>
                                     </archive>
                                 </configuration>

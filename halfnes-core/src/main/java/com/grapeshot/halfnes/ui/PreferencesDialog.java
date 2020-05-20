@@ -11,12 +11,10 @@
 package com.grapeshot.halfnes.ui;
 
 import com.grapeshot.halfnes.Prefs;
-import com.grapeshot.halfnes.PrefsSingleton;
-import java.awt.event.KeyEvent;
+import com.grapeshot.halfnes.NESContext;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.prefs.BackingStoreException;
-import java.util.prefs.Preferences;
 
 /**
  *
@@ -32,7 +30,7 @@ public class PreferencesDialog extends javax.swing.JDialog {
      */
     public PreferencesDialog(java.awt.Frame parent) {
         super(parent, true);
-        Prefs prefs = PrefsSingleton.get();
+        Prefs prefs = NESContext.getPrefs();
         initComponents();
         this.setTitle("HalfNES Preferences");
         //set all of the text boxes
@@ -299,7 +297,7 @@ public class PreferencesDialog extends javax.swing.JDialog {
     private void jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOKActionPerformed
         //    if ("OK".equals(evt.getActionCommand())) {
         //here we go... save everything and hide the window
-        Prefs prefs = PrefsSingleton.get();
+        Prefs prefs = NESContext.getPrefs();
         prefs.putBoolean("soundEnable", jCheckSoundEnable.isSelected());
         prefs.putBoolean("soundFiltering", jCheckSoundFiltering.isSelected());
         prefs.putBoolean("maintainAspect", jCheckMaintainAspect.isSelected());
