@@ -5,8 +5,11 @@ import js.Console;
 
 public class DOMLogger implements Logger {
     @Override
-    public void log(String tolog) {
-        Console.log(tolog);
+    public void log(String ... tolog) {
+			StringBuilder sb=new StringBuilder();
+			for(String s:tolog)
+				sb.append(s);
+        Console.log(sb.toString());
     }
 
     @Override

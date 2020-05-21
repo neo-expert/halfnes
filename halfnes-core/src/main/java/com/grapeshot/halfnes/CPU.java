@@ -215,9 +215,9 @@ public final class CPU {
                     ram.read(PC),
                     ram.read(PC + 1),
                     PC + (byte) (ram.read(PC)) + 1);
-            log(utils.hex(PC - 1) + " " + utils.hex(instr)
-                    + String.format(" %-14s ", op)
-                    + status() + " CYC:" + pixel + " SL:" + scanline + "\n");
+            log(utils.hex(PC - 1) ," " ,utils.hex(instr),
+                     String.format(" %-14s ", op),
+                     status() , " CYC:" , Integer.toString(pixel) , " SL:" , Integer.toString(scanline) , "\n");
         }
         if (cycles == 0) {
             flushLog();
@@ -2097,7 +2097,7 @@ public final class CPU {
         log("**PC SET**");
     }
 
-    public final void log(String tolog) {
+    public final void log(String ... tolog) {
         if (logging) {
              w.log(tolog);
         }

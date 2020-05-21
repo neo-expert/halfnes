@@ -94,9 +94,10 @@ public class NESContext {
         }
 
         @Override
-        public void log(String tolog) {
+        public void log(String ... tolog) {
             try {
-                w.write(tolog);
+								for(String s:tolog)
+                	w.write(s);
             } catch (IOException e) {
                 e.printStackTrace();
             }
