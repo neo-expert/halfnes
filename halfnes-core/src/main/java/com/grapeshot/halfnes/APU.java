@@ -94,7 +94,6 @@ public class APU {
 		private static AudioOutInterface defAudio;
 		public static void setDedaultAudioInterface(AudioOutInterface ai){
 			defAudio=ai;
-		
 		}
 
     public final synchronized void setParameters() {

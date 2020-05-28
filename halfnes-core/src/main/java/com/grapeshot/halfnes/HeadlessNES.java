@@ -3,6 +3,10 @@ package com.grapeshot.halfnes;
 import com.grapeshot.halfnes.ui.HeadlessUI;
 import com.grapeshot.halfnes.ui.PuppetController;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 /*
 import javax.swing.*;
 import java.awt.*;
@@ -30,9 +34,8 @@ public class HeadlessNES {
             ui.runFrame();
         }
 
-        //BufferedImage image = ui.getLastFrame();
+        BufferedImage image = ui.getLastFrame();
 
-				/*
         JFrame frame = new JFrame("Display") {
             @Override
             public void paint(Graphics g) {
@@ -43,6 +46,5 @@ public class HeadlessNES {
         frame.setSize(256 * scale, 224 * scale);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		*/
     }
 }

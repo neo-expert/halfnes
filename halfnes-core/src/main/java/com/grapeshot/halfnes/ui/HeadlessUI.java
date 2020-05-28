@@ -2,6 +2,7 @@ package com.grapeshot.halfnes.ui;
 
 import com.grapeshot.halfnes.CPURAM;
 import com.grapeshot.halfnes.NES;
+import com.grapeshot.halfnes.video.BufferedImageRenderer;
 import com.grapeshot.halfnes.video.RGBRenderer;
 import com.grapeshot.halfnes.video.Renderer;
 
@@ -13,7 +14,7 @@ import java.awt.image.BufferedImage;
 public class HeadlessUI implements GUIInterface {
 
     private NES nes;
-    private Renderer renderer;
+    private BufferedImageRenderer renderer;
     private boolean renderFrames;
     private BufferedImage lastFrame = null;
     private boolean updateImage;
@@ -66,8 +67,8 @@ public class HeadlessUI implements GUIInterface {
     @Override
     public void setFrame(int[] frame, int[] bgcolor, boolean dotcrawl) {
         if (renderFrames) {
-            //this.lastFrame = 
 							renderer.render(frame, bgcolor, dotcrawl);
+            this.lastFrame = renderer.getImage();
         }
     }
 

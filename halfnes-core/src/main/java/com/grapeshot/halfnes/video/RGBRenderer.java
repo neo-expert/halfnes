@@ -27,7 +27,7 @@ public class RGBRenderer extends BufferedImageRenderer {
         for (int i = 0; i < nespixels.length; ++i) {
             nespixels[i] = NesColors.col[(nespixels[i] & 0x1c0) >> 6][nespixels[i] & 0x3f];
         }
-        img= getBufferedImage(nespixels);
+        img = getBufferedImage(nespixels);
     }
 
     @Override
