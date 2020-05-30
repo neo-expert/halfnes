@@ -5,7 +5,6 @@
 package com.grapeshot.halfnes.video;
 
 
-import js.Console;
 
 /**
  *

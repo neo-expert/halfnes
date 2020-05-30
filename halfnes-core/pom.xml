@@ -23,11 +23,6 @@
 			</repository>
 		</repositories>
     <dependencies>
-			<dependency>
-				<groupId>com.neoexpert</groupId>
-				<artifactId>dom</artifactId>
-				<version>1.0.5</version>
-			</dependency>
         <!-- Controller input -->
         <dependency>
             <groupId>net.java.jinput</groupId>
