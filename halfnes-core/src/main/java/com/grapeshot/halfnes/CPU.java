@@ -226,7 +226,7 @@ public final class CPU {
         switch (instr) {
             // ADC
             case 0x69:
-                adc(imm());
+                adc(PC++);
                 cycles += 2;
                 break;
             case 0x65:
@@ -268,21 +268,21 @@ public final class CPU {
                 break;
             // ALR (unofficial)
             case 0x4b:
-                alr(imm());
+                alr(PC++);
                 cycles += 2;
                 break;
             // ANC (unofficial)
             case 0x0b:
-                anc(imm());
+                anc(PC++);
                 cycles += 2;
                 break;
             case 0x2b:
-                anc(imm());
+                anc(PC++);
                 cycles += 2;
                 break;
             // AND
             case 0x29:
-                and(imm());
+                and(PC++);
                 cycles += 2;
                 break;
             case 0x25:
@@ -315,7 +315,7 @@ public final class CPU {
                 break;
             // ARR (unofficial)
             case 0x6b:
-                arr(imm());
+                arr(PC++);
                 cycles += 2;
                 break;
             // ASL
@@ -341,7 +341,7 @@ public final class CPU {
                 break;
             // AXS (unofficial)
             case 0xcb:
-                axs(imm());
+                axs(PC++);
                 cycles += 2;
                 break;
             // BIT
@@ -394,7 +394,7 @@ public final class CPU {
                 break;
             // CMP
             case 0xc9:
-                cmp(A, imm());
+                cmp(A, PC++);
                 cycles += 2;
                 break;
             case 0xc5:
@@ -427,7 +427,7 @@ public final class CPU {
                 break;
             // CPX
             case 0xe0:
-                cmp(X, imm());
+                cmp(X, PC++);
                 cycles += 2;
                 break;
             case 0xe4:
@@ -440,7 +440,7 @@ public final class CPU {
                 break;
             // CPY
             case 0xc0:
-                cmp(Y, imm());
+                cmp(Y, PC++);
                 cycles += 2;
                 break;
             case 0xc4:
@@ -499,7 +499,7 @@ public final class CPU {
                 break;
             // EOR
             case 0x49:
-                eor(imm());
+                eor(PC++);
                 cycles += 2;
                 break;
             case 0x45:
@@ -672,7 +672,7 @@ public final class CPU {
                 cycles += 4;
                 break;
             case 0xab:
-                lax(imm());
+                lax(PC++);
                 cycles += 2;
                 break;
             case 0xaf:
@@ -685,7 +685,7 @@ public final class CPU {
                 break;
             // LDA
             case 0xa9:
-                lda(imm());
+                lda(PC++);
                 cycles += 2;
                 break;
             case 0xa5:
@@ -718,7 +718,7 @@ public final class CPU {
                 break;
             // LDX
             case 0xa2:
-                ldx(imm());
+                ldx(PC++);
                 cycles += 2;
                 break;
             case 0xa6:
@@ -739,7 +739,7 @@ public final class CPU {
                 break;
             // LDY
             case 0xa0:
-                ldy(imm());
+                ldy(PC++);
                 cycles += 2;
                 break;
             case 0xa4:
@@ -794,7 +794,7 @@ public final class CPU {
             case 0xc2:
             case 0xe2:
             case 0x89:
-                imm();
+                PC++;
                 cycles += 2;
                 break;
             case 0x04:
@@ -827,7 +827,7 @@ public final class CPU {
                 break;
             // ORA
             case 0x09:
-                ora(imm());
+                ora(PC++);
                 cycles += 2;
                 break;
             case 0x05:
@@ -1048,7 +1048,7 @@ public final class CPU {
                 cycles += 4;
                 break;
             case 0xE9:
-                sbc(imm());
+                sbc(PC++);
                 cycles += 2;
                 break;
             case 0xF9:
@@ -1056,7 +1056,7 @@ public final class CPU {
                 cycles += 4 + pb;
                 break;
             case 0xeb:
-                sbc(imm());
+                sbc(PC++);
                 cycles += 2;
                 break;
             case 0xEd:
@@ -1230,7 +1230,7 @@ public final class CPU {
                 break;
             // XAA (unofficial)
             case 0x8b:
-                xaa(imm());
+                xaa(PC++);
                 cycles += 2;
                 break;
             default:
@@ -1708,9 +1708,10 @@ public final class CPU {
 
     // Functions for memory address types; each returns the _memory_address_ for
     // the next fn
+    /*
     private int imm() {
         return PC++;
-    }
+    }*/
 
     private int zpg() {
         // zero page mode

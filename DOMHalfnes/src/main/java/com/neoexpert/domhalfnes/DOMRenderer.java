@@ -2,6 +2,7 @@ package com.neoexpert.domhalfnes;
 import com.grapeshot.halfnes.video.*;
 
 
+import js.Console;
 import js.dom.Canvas2D;
 import js.dom.ImageData;
 
