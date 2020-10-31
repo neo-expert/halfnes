@@ -10,6 +10,7 @@ public class DOMNES {
 				System.out.println("ERROR: DOM is not initialized");
 				return;
 			}
+			DOM.registerThread();
 
 			APU.setDedaultAudioInterface(new DOMAudio());
         NESContext.setPrefs(new DOMPrefs());

@@ -2,11 +2,10 @@ package com.neoexpert.domhalfnes;
 import com.grapeshot.halfnes.ui.*;
 
 import com.grapeshot.halfnes.NES;
-import com.grapeshot.halfnes.video.RGBRenderer;
 import js.Console;
 import js.JSEvent;
 import js.JSObject;
-import js.dom.Canvas;
+import js.dom.Canvas2D;
 import js.dom.DOM;
 import js.dom.DOMElement;
 import js.dom.JSElement;
@@ -20,7 +19,7 @@ public class DOMUI implements GUIInterface{
 
     public DOMUI(){
         nes = new NES(this);
-        Canvas canvas = DOM.createElement("canvas");
+        Canvas2D canvas = new Canvas2D();
         canvas.setInt("width",256);
         canvas.setInt("height",240);
         this.renderer = new DOMRenderer(canvas);

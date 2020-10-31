@@ -2,15 +2,15 @@ package com.neoexpert.domhalfnes;
 import com.grapeshot.halfnes.video.*;
 
 
-import js.dom.Canvas;
+import js.dom.Canvas2D;
 import js.dom.ImageData;
 
 public class DOMRenderer extends Renderer{
-    private final Canvas canvas;
-    private final Canvas.Context2D ctx;
+    private final Canvas2D canvas;
+    private final Canvas2D.Context2D ctx;
     private int last_pixel;
 
-    public DOMRenderer(Canvas canvas){
+    public DOMRenderer(Canvas2D canvas){
         //frame_width=256;
         this.canvas=canvas;
         ctx=canvas.getContext2D();
