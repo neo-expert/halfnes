@@ -108,7 +108,7 @@ public class APU {
         	ai = new SwingAudioImpl(nes, samplerate, tvtype);
         //ai = new DOMAudio();
         if (NESContext.getPrefs().getBoolean("showScope", false)) {
-            ai = new Oscilloscope(ai);
+            //ai = new Oscilloscope(ai);
         }
         //pick the appropriate pitches and lengths for NTSC or PAL
         switch (tvtype) {

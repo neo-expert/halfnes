@@ -37,7 +37,10 @@ public class DOMUI implements GUIInterface{
                 DOM.alert("open File");
                 JSObject[] files = jsElement.getArray("files");
                 JSFile file = new JSFile(files[0]);
-                nes.loadROM(file,0xC000);
+                nes.loadROM(file,null);
+
+                //test
+                //nes.loadROM(file,0xC000);
                 //test();
                 start();
             }
@@ -77,6 +80,8 @@ public class DOMUI implements GUIInterface{
     }
 
     private void start() {
+        DOM.requestAnimationFrame(runFrame);
+        /*
         for (int i = 0; i < 100; i++) {
             Console.log("runFrame: "+i);
             runFrame();
@@ -90,6 +95,8 @@ public class DOMUI implements GUIInterface{
             runFrame();
         }
         Console.log("done: ");
+
+         */
     }
 
     public PuppetController getController1() {
@@ -133,9 +140,10 @@ public class DOMUI implements GUIInterface{
         @Override
         public void run() {
             nes.frameAdvance();
+            DOM.requestAnimationFrame(this);
         }
     };
     public void runFrame() {
-        DOM.requestAnimationFrame(runFrame);
+        nes.frameAdvance();
     }
 }

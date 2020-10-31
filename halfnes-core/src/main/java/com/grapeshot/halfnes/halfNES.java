@@ -17,8 +17,9 @@ public class halfNES {
         NESContext.setPrefs(new JavaPrefs());
         JInputHelper.setupJInput();
         try {
+            UIManager.getSystemLookAndFeelClassName();
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
+        } catch (Throwable e) {
             System.err.println("Could not set system look and feel. Meh.");
         }
         new SwingUI().start(args);

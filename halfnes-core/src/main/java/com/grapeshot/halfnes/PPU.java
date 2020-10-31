@@ -9,8 +9,8 @@ import com.grapeshot.halfnes.mappers.Mapper;
 import com.grapeshot.halfnes.ui.DebugUI;
 import com.grapeshot.halfnes.ui.GUIInterface;
 import static com.grapeshot.halfnes.utils.reverseByte;
-import java.awt.image.BufferedImage;
-import static java.awt.image.BufferedImage.TYPE_INT_BGR;
+//import java.awt.image.BufferedImage;
+//import static java.awt.image.BufferedImage.TYPE_INT_BGR;
 import java.util.Arrays;
 
 import static java.util.Arrays.fill;
@@ -41,7 +41,7 @@ public class PPU {
     private DebugUI debuggui;
     private int vraminc = 1;
     private final static boolean PPUDEBUG = getPrefs().getBoolean("ntView", false);
-    private BufferedImage nametableView;
+    //private BufferedImage nametableView;
     private final int[] bgcolors = new int[256];
     private int openbus = 0; //the last value written to the PPU
     private int nextattr;
@@ -65,7 +65,7 @@ public class PPU {
         this.mapper = mapper;
         fill(OAM, 0xff);
         if (PPUDEBUG) {
-            nametableView = new BufferedImage(512, 480, TYPE_INT_BGR);
+            //nametableView = new BufferedImage(512, 480, TYPE_INT_BGR);
             debuggui = new DebugUI(512, 480);
             debuggui.run();
         }
@@ -742,6 +742,7 @@ public class PPU {
      * draw all 4 nametables/tileset/pallette to debug window. (for the
      * nametable viewer)
      */
+    /*
     private void debugDraw() {
         for (int i = 0; i < 32; ++i) {
             for (int j = 0; j < 30; ++j) {
@@ -790,6 +791,7 @@ public class PPU {
         debuggui.setFrame(nametableView);
         //debugbuff.clear();
     }
+     */
 
     /**
      * Fetches 8x8 NES tile stored at the given offset. This is an artifact of
@@ -823,9 +825,11 @@ public class PPU {
      * @param gui the GUI window to render to
      */
     public final void renderFrame(GUIInterface gui) {
+        /*
         if (PPUDEBUG) {
             debugDraw();
         }
+         */
         if (gui != null) {
             gui.setFrame(bitmap, bgcolors, dotcrawl);
         }
