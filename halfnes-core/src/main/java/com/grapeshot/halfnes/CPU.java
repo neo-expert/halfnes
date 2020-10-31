@@ -218,9 +218,9 @@ public final class CPU {
             log(utils.hex(PC - 1) ," " ,utils.hex(instr),
                      String.format(" %-14s ", op),
                      status() , " CYC:" , Integer.toString(pixel) , " SL:" , Integer.toString(scanline) , "\n");
-        }
-        if (cycles == 0) {
-            flushLog();
+            if (cycles == 0) {
+                flushLog();
+            }
         }
 
         switch (instr) {
