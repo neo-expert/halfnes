@@ -35,8 +35,10 @@ public class DOMUI implements GUIInterface{
     }
     private LinkedList<Command> commands=new LinkedList<>();
     public DOMUI(){
-        commands.add(new Command(1230, PuppetController.Button.START,true));
-        commands.add(new Command(1240, PuppetController.Button.START,false));
+        commands.add(new Command(1300, PuppetController.Button.START,true));
+        commands.add(new Command(1320, PuppetController.Button.START,false));
+        commands.add(new Command(1350, PuppetController.Button.START,true));
+        commands.add(new Command(1360, PuppetController.Button.START,false));
         nes = new NES(this);
         Canvas2D canvas = new Canvas2D();
         canvas.setInt("width",256);
