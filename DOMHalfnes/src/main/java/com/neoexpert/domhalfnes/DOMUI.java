@@ -12,29 +12,49 @@ import js.dom.JSElement;
 import js.event.EventListener;
 import js.io.JSFile;
 
+import java.util.LinkedList;
+
 public class DOMUI implements GUIInterface{
+    private final DOMElement frameCounter;
+    private Command nextCommand;
+    private int nextCommandFrame;
     private NES nes;
     private final DOMRenderer renderer;
-    private PuppetController controller1, controller2;
+    private final PuppetController controller1;
 
+    private static class Command{
+        public int frame;
+        public PuppetController.Button button;
+        boolean press;
+
+        public Command(int frame, PuppetController.Button button, boolean press) {
+            this.frame=frame;
+            this.button=button;
+            this.press=press;
+        }
+    }
+    private LinkedList<Command> commands=new LinkedList<>();
     public DOMUI(){
+        commands.add(new Command(1230, PuppetController.Button.START,true));
+        commands.add(new Command(1240, PuppetController.Button.START,false));
         nes = new NES(this);
         Canvas2D canvas = new Canvas2D();
         canvas.setInt("width",256);
         canvas.setInt("height",240);
         this.renderer = new DOMRenderer(canvas);
         this.controller1 = new PuppetController();
-        this.controller2 = new PuppetController();
-        nes.setControllers(this.controller1, this.controller2);
+        PuppetController controller2 = new PuppetController();
+        nes.setControllers(this.controller1, controller2);
         DOMElement root=DOM.getElementById("body");
         root.appendChild(canvas);
         DOMElement input=DOM.createElement("input");
         input.setString("type","file");
         root.appendChild(input);
+        frameCounter=DOM.createElement("span");
+        root.appendChild(frameCounter);
         input.addEventListener("change", new EventListener() {
             @Override
             public void handle(JSElement jsElement, JSEvent jsEvent) {
-                DOM.alert("open File");
                 JSObject[] files = jsElement.getArray("files");
                 JSFile file = new JSFile(files[0]);
                 nes.loadROM(file,null);
@@ -46,6 +66,8 @@ public class DOMUI implements GUIInterface{
             }
         });
 
+        nextCommand=commands.removeFirst();
+        nextCommandFrame = nextCommand.frame;
     }
 
     private void test() {
@@ -135,10 +157,25 @@ public class DOMUI implements GUIInterface{
     @Override
     public void loadROMs(String path) {
     }
+    int counter=0;
 
-    Runnable runFrame=new Runnable() {
+    final Runnable runFrame=new Runnable() {
         @Override
         public void run() {
+            ++counter;
+            frameCounter.setContent("frame: "+counter);
+            if(counter==nextCommandFrame) {
+                if(nextCommand.press)
+                    controller1.pressButton(nextCommand.button);
+                else
+                    controller1.releaseButton(nextCommand.button);
+                if(commands.isEmpty())
+                    nextCommandFrame=-1;
+                else {
+                    nextCommand = commands.removeFirst();
+                    nextCommandFrame = nextCommand.frame;
+                }
+            }
             nes.frameAdvance();
             DOM.requestAnimationFrame(this);
         }
