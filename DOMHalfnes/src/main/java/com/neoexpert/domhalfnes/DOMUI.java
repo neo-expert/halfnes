@@ -5,12 +5,11 @@ import com.grapeshot.halfnes.NES;
 import js.Console;
 import js.JSEvent;
 import js.JSObject;
-import js.dom.Canvas2D;
-import js.dom.DOM;
-import js.dom.DOMElement;
-import js.dom.JSElement;
+import js.dom.*;
 import js.event.EventListener;
 import js.io.JSFile;
+import js.event.*;
+import js.*;
 
 import java.util.LinkedList;
 
@@ -56,7 +55,7 @@ public class DOMUI implements GUIInterface{
         root.appendChild(frameCounter);
         input.addEventListener("change", new EventListener() {
             @Override
-            public void handle(JSElement jsElement, JSEvent jsEvent) {
+            public void handle(EventTarget jsElement, JSEvent jsEvent) {
                 JSObject[] files = jsElement.getArray("files");
                 JSFile file = new JSFile(files[0]);
                 nes.loadROM(file,null);
